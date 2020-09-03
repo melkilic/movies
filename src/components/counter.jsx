@@ -33,6 +33,9 @@ class Counter extends Component {
           >
             x
           </button>
+          {/* <button className="btn btn-primary btn-sm m-2">
+           
+          </button> */}
         </div>
       </div>
     );

@@ -69,7 +69,7 @@ class App extends React.Component {
     console.log("App - Rendered");
     return (
       <React.Fragment>
-        <NavBar
+        {/* <NavBar
           totalCounters={this.state.counters.filter((c) => c.value > 0).length}
         />
         <main className="container">
@@ -80,7 +80,8 @@ class App extends React.Component {
             onDelete={this.handleDelete}
             onDecrement={this.handleDecrement}
           />
-        </main>
+        </main> */}
+        <Movies />
       </React.Fragment>
     );
   }
