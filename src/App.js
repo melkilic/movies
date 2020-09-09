@@ -2,10 +2,7 @@
 
 import React from "react";
 import "./App.css";
-import NavBar from "./components/navbar";
 import Movies from "./components/movies";
-import Counters from "./components/counters";
-import { render } from "@testing-library/react";
 
 class App extends React.Component {
   state = {
@@ -69,18 +66,6 @@ class App extends React.Component {
     console.log("App - Rendered");
     return (
       <React.Fragment>
-        {/* <NavBar
-          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
-        />
-        <main className="container">
-          <Counters
-            counters={this.state.counters}
-            onReset={this.handleReset}
-            onIncrement={this.handleIncrement}
-            onDelete={this.handleDelete}
-            onDecrement={this.handleDecrement}
-          />
-        </main> */}
         <Movies />
       </React.Fragment>
     );
