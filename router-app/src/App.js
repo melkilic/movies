@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+/** @format */
+
+import React, { Component } from "./node_modules/react";
+import { Route, Switch, Redirect } from "../node_modules/react-router-dom";
 import NavBar from "./components/navbar";
 import Products from "./components/products";
 import Posts from "./components/posts";
@@ -19,7 +21,7 @@ class App extends Component {
             <Route path="/products/:id" component={ProductDetails} />
             <Route
               path="/products"
-              render={props => <Products sortBy="newest" {...props} />}
+              render={(props) => <Products sortBy="newest" {...props} />}
             />
             <Route path="/posts/:year?/:month?" component={Posts} />
             <Route path="/admin" component={Dashboard} />
