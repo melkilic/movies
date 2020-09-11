@@ -32,6 +32,9 @@ const NavBar = ({ totalCounters }) => {
           <NavLink className="nav-link" to="/rentals">
             Rentals
           </NavLink>
+          <NavLink className="nav-link" to="/login">
+            Login
+          </NavLink>
         </div>
       </div>
     </nav>
