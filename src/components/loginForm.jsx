@@ -2,8 +2,6 @@
 
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import Input from "./common/input";
-
 class LoginForm extends Component {
   state = {
     /*null and undefined cannot be used as a value of control elements
@@ -61,22 +59,9 @@ class LoginForm extends Component {
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          <Input
-            name="username"
-            value={account.username}
-            label="Username"
-            onChange={this.handleChange}
-            error={errors.username}
-          />
-          <Input
-            name="password"
-            value={account.password}
-            label="Password"
-            onChange={this.handleChange}
-            error={errors.password}
-          />
-
-          <button className="btn btn-primary">Login</button>
+          {this.renderInput("username", "Username")}
+          {this.renderInput("password", "Password")}
+          {this.renderButton("Login")}
         </form>
       </div>
     );
