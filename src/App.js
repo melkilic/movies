@@ -9,9 +9,18 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navbar";
 import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
+import axios from "axios";
 import "./App.css";
 import RegisterForm from "./components/registerForm";
 class App extends React.Component {
+  state = {
+    posts: [],
+  };
+
+  componentDidMount() {
+    const response = await axios.get("http://jsonplaceholder.typicode.com/posts");
+    console.log(response)
+  }
   render() {
     return (
       <React.Fragment>
