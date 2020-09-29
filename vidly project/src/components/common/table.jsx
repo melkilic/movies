@@ -1,10 +1,9 @@
 /** @format */
 
-import React, { Component } from "react";
-import TableBody from "./tableBody";
+import React from "react";
 import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
 
-//this way you are picking these data from the props
 const Table = ({ columns, sortColumn, onSort, data }) => {
   return (
     <table className="table">

@@ -1,12 +1,12 @@
 /** @format */
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import auth from "./services/authService";
 import Like from "./common/like";
 import Table from "./common/table";
-import { sortedIndex } from "lodash";
+import { Link } from "react-router-dom";
 
-export default class MoviesTable extends Component {
+class MoviesTable extends Component {
   columns = [
     {
       path: "title",
@@ -15,36 +15,40 @@ export default class MoviesTable extends Component {
         <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
       ),
     },
-    {
-      path: "genre.name",
-      label: "Genre",
-    },
-    {
-      path: "numberInStock",
-      label: "Stock",
-    },
-    {
-      path: "dailyRentalRate",
-      label: "Rate",
-    },
+    { path: "genre.name", label: "Genre" },
+    { path: "numberInStock", label: "Stock" },
+    { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
       content: (movie) => (
-        <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
-      ),
-    },
-    {
-      key: "delete",
-      content: (movie) => (
-        <button
-          className="btn btn-danger btn-sm"
-          onClick={() => this.props.onDelete(movie)}
-        >
-          Delete
-        </button>
+        <Like
+          liked={movie.liked}
+          onClick={() => {
+            this.props.onLike(movie);
+          }}
+        />
       ),
     },
   ];
+
+  deleteColumn = {
+    key: "delete",
+    content: (movie) => (
+      <button
+        onClick={() => this.props.onDelete(movie)}
+        className="btn btn-danger btn-sm"
+      >
+        Delete
+      </button>
+    ),
+  };
+
+  constructor() {
+    super();
+    const user = auth.getCurrentUser();
+    if (user && user.isAdmin) this.columns.push(this.deleteColumn);
+  }
+
   render() {
     const { movies, onSort, sortColumn } = this.props;
     return (
@@ -57,3 +61,5 @@ export default class MoviesTable extends Component {
     );
   }
 }
+
+export default MoviesTable;
