@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Movies from "./components/movies";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
@@ -9,39 +10,49 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navbar";
 import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
-import axios from "axios";
-import "./App.css";
 import RegisterForm from "./components/registerForm";
+import Logout from "./components/logout";
+import auth from "./components/services/authService";
+import "react-toastify/dist/ReactToastify";
+import "./App.css";
+// import { jwtDeconde } from "jwt-decode";
+
 class App extends React.Component {
-  state = {
-    posts: [],
-  };
+  state = {};
 
   async componentDidMount() {
-    const response = await axios.get(
-      "http://jsonplaceholder.typicode.com/posts"
-    );
-    console.log(response);
+    // const response = await axios.get(
+    //   "http://jsonplaceholder.typicode.com/posts"
+    // );
+    // console.log(response);
+    const user = auth.getCurrentUser();
+    this.setState({ user });
   }
   render() {
     return (
       <React.Fragment>
-        <NavBar />
-        <main className="container">
-          <Switch>
-            <Route path="/register" component={RegisterForm}>
-              {" "}
-            </Route>
-            <Route path="/login" component={LoginForm}></Route>
-            <Route path="/movies/:id" component={MovieForm}></Route>
-            <Route path="/movies" component={Movies}></Route>
-            <Route path="/customers" component={Customers}></Route>
-            <Route path="/rentals" component={Rentals}></Route>
-            <Route path="/not-found" component={NotFound}></Route>
-            <Redirect from="/" exact to="/movies" />
-            <Redirect to="/not-found" />
-          </Switch>
-        </main>
+        <ToastContainer>
+          <NavBar user={this.state} />
+          <main className="container">
+            <Switch>
+              <Route path="/register" component={RegisterForm}>
+                {" "}
+              </Route>
+              <Route path="/login" component={LoginForm}></Route>
+              <Route path="/logout" component={Logout}></Route>
+              <Route path="/movies/:id" component={MovieForm}></Route>
+              <Route
+                path="/movies"
+                render={(props) => <Movies {...props} user={this.state.user} />}
+              />
+              <Route path="/customers" component={Customers}></Route>
+              <Route path="/rentals" component={Rentals}></Route>
+              <Route path="/not-found" component={NotFound}></Route>
+              <Redirect from="/" exact to="/movies" />
+              <Redirect to="/not-found" />
+            </Switch>
+          </main>
+        </ToastContainer>
       </React.Fragment>
     );
   }

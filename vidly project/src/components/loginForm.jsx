@@ -1,7 +1,11 @@
 /** @format */
 
 import React, { Component } from "react";
+import Form from "./common/form";
 import Joi from "joi-browser";
+import auth from "./services/authService";
+import { Redirect } from "react-router-dom";
+
 class LoginForm extends Component {
   state = {
     /*null and undefined cannot be used as a value of control elements
@@ -51,6 +55,22 @@ class LoginForm extends Component {
     //whenever you are working with the objects dynamically, use the bracket notation instead of the dot notation
     account[input.name] = input.value;
     this.setState({ account, errors });
+  };
+
+  doSubmit = async () => {
+    try {
+      const { data } = this.state;
+      await auth.login(data.username, data.password);
+
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
   render() {
     const { account, errors } = this.state;
